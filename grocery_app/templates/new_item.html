@@ -3,7 +3,7 @@
 
 <h1>New Item</h1>
 
-<form>
+<form method="POST" action="/new_item">
     <fieldset>
         <legend>Please enter your information:</legend>
 
@@ -11,9 +11,24 @@
 
         <!-- TODO: Remove the next paragraph and use the `form` object passed in 
             from the route to render a form. -->
-        <p><em>Form fields go here!</em></p>
+        {{ form.name.label }}
+        {{ form.name }}
 
-        <input type="submit" value="Submit">
+        {{ form.price.label }}
+        {{ form.price }}
+
+        {{ form.category.label }}
+        {{ form.category }}
+
+        {{ form.photo_url.label }}
+        {{ form.photo_url }}
+
+        {{ form.store.lable }}
+        {{ form.store }}
+
+        {{ form.submit }}
+    
+    
     </fieldset>
 </form>
 

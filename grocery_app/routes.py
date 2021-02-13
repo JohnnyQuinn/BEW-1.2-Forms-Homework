@@ -32,7 +32,6 @@ def new_store():
         new_store = GroceryStore(
             title = form.title.data,
             address = form.address.data,
-            items = form.items.data
         )
         db.session.add(new_store)
         db.session.commit()
@@ -89,7 +88,7 @@ def store_detail(store_id):
 
     # TODO: Send the form to the template and use it to render the form fields
     store = GroceryStore.query.get(store_id)
-    return render_template('store_detail.html', store=store)
+    return render_template('store_detail.html', store=store, form=form)
 
 @main.route('/item/<item_id>', methods=['GET', 'POST'])
 def item_detail(item_id):
