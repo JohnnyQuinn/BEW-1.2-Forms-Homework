@@ -130,7 +130,20 @@ def item_detail(item_id):
     item = GroceryItem.query.get(item_id)
     return render_template('item_detail.html', item=item, form=form)
 
-# routes.py
+@main.route('/add_to_shopping_list/<item_id>', methods=['POST'])
+def add_to_shopping_list(item_id):
+    item = GroceryItem.query.get(item_id)
+
+    current_user.shopping_list_items.append(item)
+
+@main.route('/shopping_list')
+@login_required
+def shopping_list():
+    # ... get logged in user's shopping list items ...
+    # ... display shopping list items in a template ...
+    shopping_list = current_user.shopping_list_items
+
+    return render_template('shopping_list.html', shopping_list=shopping_list)
 
 auth = Blueprint("auth", __name__)
 

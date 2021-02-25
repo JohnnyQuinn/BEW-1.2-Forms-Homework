@@ -3,7 +3,7 @@
 
 <h1>Item - {{ item.name }}</h1>
 
-<h3>Added by: {{ current_user.username }}</h3>
+<h3>Added by: {{ item.created_by.username }}</h3>
 
 <p><img src="{{ item.photo_url }}" width="250px" height="250px"></p>
 
@@ -12,6 +12,8 @@
 <p><strong>Category:</strong> {{ item.category }}</p>
 
 <p><strong>Store:</strong> {{ item.store.title }}</p>
+
+<form action="POST" action="{{ url_for('main.add_to_shopping_list', item_id=item.id) }}"><button>Add Item To Your Shopping List</button></form>
 
 
 <h2>Edit Item</h2>
