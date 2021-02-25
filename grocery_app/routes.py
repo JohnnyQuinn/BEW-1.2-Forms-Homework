@@ -2,12 +2,14 @@ from flask import Blueprint, request, render_template, redirect, url_for, flash
 from datetime import date, datetime
 from grocery_app.models import GroceryStore, GroceryItem, User
 from grocery_app.forms import GroceryItemForm, GroceryStoreForm, SignUpForm, LoginForm
-from flask_login import login_required, LoginManager
+from flask_login import login_user, logout_user, login_required, current_user
 from flask_bcrypt import Bcrypt
 
 
 # Import app and db from events_app package so that we can run app
 from grocery_app import app, db
+
+bcrypt = Bcrypt(app)
 
 main = Blueprint("main", __name__)
 
@@ -35,6 +37,7 @@ def new_store():
         new_store = GroceryStore(
             title = form.title.data,
             address = form.address.data,
+            created_by = current_user
         )
         db.session.add(new_store)
         db.session.commit()
@@ -61,7 +64,8 @@ def new_item():
             price = form.price.data,
             category = form.category.data,
             photo_url = form.photo_url.data,
-            store = form.store.data
+            store = form.store.data,
+            created_by = current_user
         )
         db.session.add(new_item)
         db.session.commit()
@@ -99,6 +103,7 @@ def store_detail(store_id):
 
 @main.route('/item/<item_id>', methods=['GET', 'POST'])
 @login_required
+
 def item_detail(item_id):
     item = GroceryItem.query.get(item_id)
     # TODO: Create a GroceryItemForm and pass in `obj=item`
