@@ -12,3 +12,4 @@ Werkzeug==1.0.1
 gunicorn 
 flask_login
 flask_bcrypt
+flask_wtf
